@@ -15,20 +15,19 @@ namespace WebApplication.Services
         public GeneratePopulation(INormalDestribution normalDestribution){
             _normalDestribution=normalDestribution;
         }
-        public void Generate(Dictionary<double,double> products)
+        public void Generate(Dictionary<string,double[]> products)
         {
-            
             SampleRepository s =new SampleRepository();
             s.clear();
-            ArrayList a=new ArrayList();
-           foreach(KeyValuePair<double, double> item in products)
+           foreach(KeyValuePair<string,double[]> item in products)
             {
-                _normalDestribution._mi=item.Key;
-                _normalDestribution._di=item.Value;
+                _normalDestribution._mi=item.Value[0];
+                _normalDestribution._di=item.Value[1];
+                ArrayList l=new ArrayList(100);
                 for(int i=0;i<100;i++){
-                    a.Add(_normalDestribution.normalFunction());
+                l.Add(_normalDestribution.normalFunction());
                 }
-                s.Add(new SampleItem { Values=a });
+                s.Add(new SampleItem {CurrentPrise=_normalDestribution._mi,StandardDeviation=_normalDestribution._di, Values=l});
             }
         }
     }

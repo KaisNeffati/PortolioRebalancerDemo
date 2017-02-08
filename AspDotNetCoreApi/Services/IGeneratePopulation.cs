@@ -4,6 +4,6 @@ namespace WebApplication.Services
 {
     public interface IGeneratePopulation
     {
-        void Generate(Dictionary<double,double> products);
+        void Generate(Dictionary<string,double[]> products);
     }
 }

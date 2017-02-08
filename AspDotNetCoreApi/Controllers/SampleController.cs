@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Sample.Models;
+using System;
 
 using WebApplication.Services;
 
@@ -21,8 +22,9 @@ namespace SampleApi.Controllers
         [HttpGet]
         public IEnumerable<SampleItem> GetAll()
         {
-           Dictionary<double,double> products=new Dictionary<double,double>();
-           products.Add(10,3);
+           Dictionary<string,double[]> products=new Dictionary<string,double[]>();
+           products.Add(Guid.NewGuid().ToString(),new double[]{0.4,0.3});
+           products.Add(Guid.NewGuid().ToString(),new double[]{1.9,0.5,});
             _generatePopulation.Generate(products);
             return SampleItems.GetAll();
         }
