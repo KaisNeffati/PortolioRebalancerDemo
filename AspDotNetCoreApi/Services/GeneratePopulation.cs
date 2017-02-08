@@ -24,7 +24,7 @@ namespace WebApplication.Services
                 _normalDestribution._mi=item.Value[0];
                 _normalDestribution._di=item.Value[1];
                 ArrayList l=new ArrayList(100);
-                for(int i=0;i<100;i++){
+                for(int j=0;j<100;j++){
                 l.Add(_normalDestribution.normalFunction());
                 }
                 s.Add(new SampleItem {CurrentPrise=_normalDestribution._mi,StandardDeviation=_normalDestribution._di, Values=l});
