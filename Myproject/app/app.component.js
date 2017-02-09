@@ -14,11 +14,12 @@ var AppComponent = (function () {
     function AppComponent(_SamplesService) {
         this._SamplesService = _SamplesService;
         this.line_ChartData = [
-            ['Year', 'Sales', 'Expenses'],
-            ['2004', 1000, 400],
-            ['2005', 1170, 460],
-            ['2006', 660, 1120],
-            ['2007', 1030, 540]
+            ['Year', 'm1', 'm2']
+        ];
+        this.line_ChartXY = [
+            ['Year', 'portfolio Value'],
+            ['2014', 300],
+            ['2014', 200]
         ];
         this.bubble_ChartData = [
             ['ID', 'Life Expectancy', 'Fertility Rate', 'Region', 'Population'],
@@ -68,7 +69,13 @@ var AppComponent = (function () {
             ['Philadelphia, PA', 1526000, 1517000]
         ];
         this.line_ChartOptions = {
-            title: 'Company Performance',
+            title: 'Prices',
+            curveType: 'function',
+            legend: { position: 'bottom'
+            }
+        };
+        this.line_ChartOptionsXY = {
+            title: 'X-Y',
             curveType: 'function',
             legend: { position: 'bottom'
             }
@@ -158,9 +165,17 @@ var AppComponent = (function () {
         this._SamplesService.getSamples()
             .subscribe(function (samples) {
             _this.samples = samples;
-            for (var _i = 0, samples_1 = samples; _i < samples_1.length; _i++) {
-                var item = samples_1[_i];
-                _this.line_ChartData.push(item.values);
+            var i = 0;
+            var list;
+            for (var _i = 0; _i < 100; _i++) {
+                list = [_i.toString(), samples[0].values[_i], samples[1].values[_i]];
+                console.log(_i);
+                _this.line_ChartData.push(list);
+            }
+            for (var _i = 0; _i < 100; _i++) {
+                list = [_i.toString(), samples[0].values[_i] * (188 + 60) * 0.6 + samples[1].values[_i] * (-20) * 1.5 + 40];
+                console.log(_i);
+                _this.line_ChartXY.push(list);
             }
         }, function (error) { return _this.errorMessage = error; });
     };

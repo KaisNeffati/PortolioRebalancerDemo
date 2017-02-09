@@ -21,19 +21,30 @@ constructor(private _SamplesService: SamplesService) {
      ngOnInit():void{
         this._SamplesService.getSamples()
                 .subscribe(samples => {this.samples = samples;
-                  for(let item of samples){
-                    this.line_ChartData.push(item.values);
+                  let i: number=0;
+                  let list: Array<any> ;
+                  for (var _i = 0; _i < 100; _i++) {
+                    list = [_i.toString(), samples[0].values[_i], samples[1].values[_i]];
+                    console.log(_i);
+                    this.line_ChartData.push(list);
+                  }
+                 for (var _i = 0; _i < 100; _i++) {
+                    list = [_i.toString(), samples[0].values[_i]*(188+60)*0.6 + samples[1].values[_i]*(-20)*1.5 + 40];
+                    console.log(_i);
+                    this.line_ChartXY.push(list);
                   }
               },
-                           error => this.errorMessage = <any>error);
+              
+              error => this.errorMessage = <any>error);
 
     }
    public line_ChartData = [
-          ['Year', 'Sales', 'Expenses'],
-          ['2004',  1000,      400],
-          ['2005',  1170,      460],
-          ['2006',  660,       1120],
-          ['2007',  1030,      540]];
+          ['Year', 'm1', 'm2']];
+
+   public line_ChartXY = [
+          ['Year', 'portfolio Value'],
+          ['2014',300],
+          ['2014',200]];
    public bubble_ChartData = [
         ['ID', 'Life Expectancy', 'Fertility Rate', 'Region',     'Population'],
         ['CAN',    80.66,              1.67,      'North America',  33739900],
@@ -79,7 +90,13 @@ constructor(private _SamplesService: SamplesService) {
             ['Houston, TX', 2099000, 1953000],
             ['Philadelphia, PA', 1526000, 1517000]];
     public line_ChartOptions = {
-      title: 'Company Performance',
+      title: 'Prices',
+      curveType: 'function',
+      legend: { position: 'bottom'
+      }
+    };
+    public line_ChartOptionsXY = {
+      title: 'X-Y',
       curveType: 'function',
       legend: { position: 'bottom'
       }
